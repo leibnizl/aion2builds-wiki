@@ -1,0 +1,423 @@
+/* ═══════════════════════════════════════════════════════════════
+   CONSOLE MANIFEST — see docs/DESIGN-LANGUAGE.md
+   Geometry may be playful. Typography must be honest.
+   Shadows are always 0-blur, always down-right, always solid.
+   ═══════════════════════════════════════════════════════════════ */
+:root{
+  color-scheme: light;   /* light is the product default; dark is opt-in */
+  /* --hue is injected per site from game.json (site.accentHue) by Base.astro */
+
+  --bg:#eef1f7; --card:#ffffff; --sunk:#e4e8f0;
+  --ink:#14161d; --ink-2:#5a616f; --ink-3:#8b93a3;
+  --edge:#14161d; --shad:#14161d;
+
+  --acc:hsl(var(--hue) 82% 46%); --acc-ink:#ffffff; --acc-soft:hsl(var(--hue) 82% 46% / .12);
+
+  --r1:#8b93a3; --r2:#1f9e5c; --r3:#2f6fe0; --r4:#8b3fe0; --r5:#d99000; --r6:#e0355c;
+  --ok:#1f9e5c; --warn:#b87500;
+
+  --sh:4px 4px 0 var(--shad); --sh-b:3px 3px 0 var(--shad); --sh-h:5px 5px 0 var(--shad);
+  --shell:1140px;
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --bg:#0f1116; --card:#1a1e26; --sunk:#12151b;
+  --ink:#e9ecf2; --ink-2:#a3aab7; --ink-3:#6d7482;
+  --edge:#333b49; --shad:#000000;
+  --acc:hsl(var(--hue) 75% 58%); --acc-ink:#0f1116; --acc-soft:hsl(var(--hue) 75% 58% / .16);
+  --r1:#8b93a3; --r2:#3fc27c; --r3:#5a9ce8; --r4:#b085e8; --r5:#e3ab3c; --r6:#f0637e;
+  --ok:#3fc27c; --warn:#e0a83c;
+}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:"Figtree",-apple-system,"Segoe UI",sans-serif;
+  font-size:16px;font-weight:500;line-height:1.62;-webkit-font-smoothing:antialiased}
+.shell{max-width:var(--shell);margin:0 auto;padding:0 18px}
+h1,h2,h3,h4{margin:0;font-weight:900;letter-spacing:-.03em;text-wrap:balance}
+p{margin:0 0 14px}
+a{color:var(--acc)}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+
+/* instrumentation type — the font of evidence */
+.mono,.stamp,.mlab,.code-k,.src b,.fact b,.evid td:first-child,.crumbs,.step-n,.stat b,.idx-c
+  {font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+.mlab{font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+.lab{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+
+/* ─── header ─── */
+.topbar{background:var(--bg);border-bottom:2px solid var(--edge);position:sticky;top:0;z-index:30}
+.topbar-in{display:flex;align-items:center;gap:16px;padding:12px 0}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:18px;letter-spacing:-.04em;
+  text-decoration:none;color:var(--ink);white-space:nowrap}
+.brand-mark{width:26px;height:26px;border-radius:8px;border:2px solid var(--edge);box-shadow:2px 2px 0 var(--shad);display:block;flex:none;object-fit:cover}
+/* no hamburger: /codes is the top keyword and never hides behind a menu */
+nav.main{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;flex:1}
+nav.main::-webkit-scrollbar{display:none}
+nav.main a{font:inherit;font-size:14px;font-weight:700;color:var(--ink-2);background:none;text-decoration:none;
+  border:0;border-radius:999px;padding:7px 13px;cursor:pointer;white-space:nowrap}
+nav.main a:hover{color:var(--ink);background:var(--sunk)}
+nav.main a[aria-current="page"]{background:var(--ink);color:var(--bg)}
+.tools{display:flex;gap:8px;flex:none;align-items:center}
+.icon-btn{display:inline-flex;align-items:center;gap:8px;font:inherit;font-size:14px;font-weight:900;
+  letter-spacing:-.02em;background:var(--card);border:2px solid var(--edge);border-radius:12px;
+  box-shadow:var(--sh-b);color:var(--ink);padding:8px 14px;cursor:pointer;text-decoration:none}
+.icon-btn:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--shad)}
+.icon-btn svg{width:17px;height:17px;fill:currentColor;flex:none}
+.icon-btn.ic{padding:8px 10px}
+/* the toggle shows the state you will switch TO: moon on light, sun on dark.
+   Swapped in JS via [hidden] so no component rule lives in a theme block. */
+.icon-btn .sun{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+[hidden]{display:none!important}
+@media (max-width:660px){.icon-btn .t{display:none}.icon-btn{padding:8px 10px}}
+
+/* ─── hero (Home only) ─── */
+.hero{background:var(--card);border:2px solid var(--edge);border-radius:18px;box-shadow:var(--sh-h);
+  padding:26px;margin:26px 0 40px;display:grid;grid-template-columns:1fr;gap:24px;
+  position:relative;overflow:hidden}
+@media (min-width:900px){.hero{grid-template-columns:1fr 420px;gap:30px;padding:30px}}
+.hero::after{content:"";position:absolute;left:-70px;bottom:-90px;width:230px;height:230px;
+  border-radius:50%;background:var(--acc);opacity:.11;pointer-events:none}
+.hero>*{position:relative}
+.hero h1{font-size:clamp(2.1rem,1.5rem+2.6vw,3.2rem);line-height:1;letter-spacing:-.05em;margin:11px 0 13px}
+.hero h1 em{font-style:normal;color:var(--acc);display:block}
+.hero p{color:var(--ink-2);max-width:46ch;margin:0}
+/* identity.thumbnail is the ONE image the pipeline always has — Day-0 required field */
+.keyart{border:2px solid var(--edge);border-radius:14px;overflow:hidden;background:var(--sunk);
+  align-self:start;box-shadow:var(--sh)}
+.keyart-img{aspect-ratio:16/9;display:grid;place-items:center;overflow:hidden;
+  background:linear-gradient(135deg,color-mix(in srgb,var(--acc) 22%,var(--sunk)),var(--sunk))}
+.keyart-img img{width:100%;height:100%;object-fit:contain;display:block}
+.keyart-cap{border-top:2px solid var(--edge);background:var(--card);padding:10px 13px}
+.keyart-cap b{display:block;font-size:14px;font-weight:900;letter-spacing:-.02em;margin-top:3px}
+.ctas{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}
+.hero-type-links{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin:14px 0 0;font-size:13px;font-weight:700}
+.hero-type-links a{text-decoration:none;color:var(--ink-2)}
+.hero-type-links a:hover{color:var(--acc);text-decoration:underline}
+.browse-card .mlab{letter-spacing:.12em}
+
+.cta{font:inherit;font-size:14px;font-weight:900;letter-spacing:-.01em;cursor:pointer;text-decoration:none;
+  background:var(--card);color:var(--ink);border:2px solid var(--edge);border-radius:12px;
+  box-shadow:var(--sh-b);padding:11px 16px}
+.cta:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--shad)}
+.cta.pri{background:var(--acc);color:var(--acc-ink)}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.stat{background:var(--bg);border:2px solid var(--edge);border-radius:12px;padding:9px 15px;flex:1 1 118px}
+.stat b{display:block;font-size:1.4rem;font-weight:600;line-height:1.2;letter-spacing:-.02em;
+  font-variant-numeric:tabular-nums;color:var(--ink)}
+
+/* ─── page frame ─── */
+main{padding:0 0 20px;min-height:44vh}   /* keeps the footer off the fold on thin pages without stranding one */
+.inner{padding-top:28px}
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:18px;top:10px;z-index:50;background:var(--card);border:2px solid var(--edge);border-radius:11px;padding:9px 14px;font-weight:700}
+.crumbs{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:14px}
+.crumbs a{text-decoration:none;color:var(--ink-3)}
+.crumbs a:hover{color:var(--acc)}
+.page-h1{font-size:clamp(1.75rem,1.4rem+1.6vw,2.4rem);line-height:1.05;margin-bottom:12px}
+.stamp{display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink-2);border:2px solid var(--edge);border-radius:999px;
+  padding:5px 13px;margin-bottom:20px}
+.stamp i{width:7px;height:7px;border-radius:50%;background:var(--ok);flex:none}
+.sub{color:var(--ink-2);max-width:min(82ch,100%);margin-bottom:26px}
+.prose{max-width:min(82ch,100%);color:var(--ink-2)}
+.prose strong{color:var(--ink);font-weight:700}
+.block{margin-bottom:44px}
+.block-head{display:flex;align-items:baseline;justify-content:space-between;gap:14px;margin-bottom:14px}
+.block-head h2{font-size:1.2rem}
+.block-head a,.block-head button.link{font-size:13px;font-weight:700;text-decoration:none;
+  white-space:nowrap;color:var(--acc);background:none;border:0;cursor:pointer;font-family:inherit}
+.block-head a:hover,.block-head button.link:hover{text-decoration:underline}
+
+/* ─── pills ─── */
+.pill{display:inline-flex;align-items:center;font-size:11px;font-weight:700;letter-spacing:.05em;
+  text-transform:uppercase;padding:3px 10px;border-radius:999px;border:2px solid var(--edge);
+  background:color-mix(in srgb,var(--pc,var(--ink-3)) 20%,var(--card));color:var(--ink);line-height:1.6}
+.pill.dash{border-style:dashed}
+
+/* ─── code cards ─── */
+/* Cards at every width: nobody compares codes column-by-column, they spot one,
+   copy it and tab into the game. Two rows rather than five stacked blocks —
+   the old card ran ~220px, which turned sixteen codes into 3500px of phone
+   scrolling for no gain. Copy keeps a 44px target; that is the page's job. */
+.codes{display:grid;grid-template-columns:repeat(auto-fill,minmax(272px,1fr));gap:11px}
+.code{background:var(--card);border:2px solid var(--edge);border-radius:14px;
+  box-shadow:var(--sh);padding:12px 13px;display:flex;flex-direction:column;gap:8px}
+.code-top{display:flex;align-items:center;gap:10px}
+.code-k{flex:1;min-width:0;font-size:16px;font-weight:600;letter-spacing:.02em;word-break:break-all}
+.btn{font-family:inherit;font-size:13px;font-weight:900;letter-spacing:.01em;
+  background:var(--acc);color:var(--acc-ink);border:2px solid var(--edge);border-radius:10px;
+  box-shadow:var(--sh-b);padding:10px 15px;cursor:pointer;flex:none;min-height:44px}
+.btn:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--shad)}
+.btn[data-done]{background:var(--card);color:var(--ok)}
+.code-meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 9px;
+  font-size:13.5px;color:var(--ink-2);line-height:1.4}
+.code-r{flex:1 1 100%}
+@media (prefers-reduced-motion:reduce){.btn:active,.icon-btn:active,.cta:active{transform:none}}
+
+/* Expired codes are a different task: pure lookup, no action, so density is all
+   that matters and there is no button to give room to. One container, rows inside. */
+.dead-list{background:var(--sunk);border:2px solid var(--edge);border-radius:14px;overflow:hidden}
+.dead-row{display:grid;grid-template-columns:minmax(0,auto) 1fr auto;gap:8px 14px;align-items:baseline;
+  padding:9px 13px;border-bottom:2px solid var(--edge);font-size:13.5px;color:var(--ink-3)}
+.dead-row:last-child{border-bottom:0}
+.dead-row b{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-weight:600;
+  color:var(--ink-3);text-decoration:line-through;word-break:break-all}
+.dead-row span{min-width:0}
+.dead-row time{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-size:11px;white-space:nowrap}
+/* Narrow: two flex rows rather than a grid whose auto column collapses to 0
+   and pushes the date onto its own line — that ran 98px for a lookup row. */
+@media (max-width:520px){
+  .dead-row{display:flex;flex-wrap:wrap;align-items:baseline;padding:8px 12px;gap:4px 10px}
+  .dead-row b{flex:1;min-width:0}
+  /* DOM order is code, reward, date. The reward takes a full row, which would
+     push the date onto a third line — reorder so date rides beside the code. */
+  .dead-row time{margin-left:auto;order:1}
+  .dead-row span{order:2}
+  /* One line, clipped: on the "is my code dead" task the reward is the least
+     useful field, and a wrapping one turned a lookup row into 82px. */
+  .dead-row span{flex:1 0 100%;font-size:12.5px;line-height:1.3;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+}
+
+/* ─── tier ─── */
+.tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.tab{font:inherit;font-size:13px;font-weight:700;cursor:pointer;background:var(--card);text-decoration:none;
+  border:2px solid var(--edge);border-radius:999px;padding:7px 15px;color:var(--ink-2)}
+.tab[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.tiers{display:flex;flex-direction:column;gap:11px}
+.trow{display:grid;grid-template-columns:60px 1fr;gap:12px;background:var(--card);
+  border:2px solid var(--edge);border-radius:16px;box-shadow:var(--sh);padding:10px;align-items:center}
+.tl{font-weight:900;font-size:1.85rem;letter-spacing:-.05em;display:grid;place-items:center;color:#fff;
+  border-radius:11px;border:2px solid var(--edge);align-self:stretch;min-height:54px}
+.ti{display:flex;flex-wrap:wrap;gap:7px;align-items:center}
+.unit{font:inherit;font-size:13px;font-weight:700;padding:6px 13px;border-radius:999px;cursor:pointer;text-decoration:none;
+  border:2px solid var(--edge);background:color-mix(in srgb,var(--pc) 20%,var(--card));color:var(--ink)}
+.unit:hover{border-color:var(--acc)}
+
+/* ─── entity rows — NO thumbnail.
+   entities[].image is optional in game.json and the Day-0 pipeline usually
+   cannot get one. A card built around a missing image is 90% placeholder.
+   Rarity carries the visual weight instead; a 40px thumb slots in on the
+   left only if image is actually present. ─── */
+.rows{background:var(--card);border:2px solid var(--edge);border-radius:16px;
+  box-shadow:var(--sh);overflow:hidden}
+.row{display:grid;grid-template-columns:6px 1fr auto;align-items:stretch;width:100%;text-decoration:none;
+  border:0;border-bottom:2px solid var(--edge);background:none;font:inherit;color:inherit;
+  text-align:left;cursor:pointer;padding:0}
+.row:last-child{border-bottom:0}
+.row:hover{background:var(--acc-soft)}
+.row-band{background:var(--pc)}
+.row-main{padding:11px 14px;display:flex;flex-direction:column;justify-content:center;
+  gap:1px;min-width:0}
+.row-n{font-weight:900;font-size:15px;letter-spacing:-.025em;line-height:1.3}
+/* A row is a scanning surface, not a reading one. Two lines, then it stops —
+   the full text is what the detail page is for. This is a floor under bad data
+   as much as a layout rule: one 663-character field should not be able to turn
+   a twenty-row index into a wall. */
+.row-g{font-size:12.5px;color:var(--ink-3);font-weight:500;line-height:1.4;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
+  overflow:hidden;text-overflow:ellipsis}
+.row-tags{display:flex;align-items:center;gap:6px;padding:0 14px;flex-wrap:wrap;justify-content:flex-end}
+@media (max-width:540px){
+  .row{grid-template-columns:6px 1fr}
+  .row-tags{padding:0 14px 11px;justify-content:flex-start}
+}
+/* guide index cards — also image-free */
+.gcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(276px,1fr));gap:13px}
+.gcard{background:var(--card);border:2px solid var(--edge);border-radius:16px;box-shadow:var(--sh);text-decoration:none;
+  padding:16px;cursor:pointer;font:inherit;color:inherit;text-align:left;display:flex;
+  flex-direction:column;gap:9px;width:100%}
+.gcard:hover{border-color:var(--acc)}
+.gcard-t{font-weight:900;font-size:17px;letter-spacing:-.03em;line-height:1.2}
+.gcard-j{color:var(--ink-2);font-size:14px;line-height:1.45;flex:1}
+.search{width:100%;max-width:400px;font:inherit;font-size:15px;font-weight:500;background:var(--card);
+  color:var(--ink);border:2px solid var(--edge);border-radius:12px;box-shadow:var(--sh-b);
+  padding:11px 15px;margin-bottom:18px;display:block}
+.search::placeholder{color:var(--ink-3)}
+.idx-c{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin-bottom:13px}
+.idx-groups{display:flex;flex-direction:column;gap:26px}
+.idx-h{display:flex;align-items:center;gap:9px;font-size:1.05rem;margin-bottom:10px}
+.idx-swatch{width:12px;height:12px;border-radius:3px;border:2px solid var(--edge);flex:none}
+.idx-h em{font-style:normal;font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  font-size:11px;font-weight:500;color:var(--ink-3);letter-spacing:.08em}
+.idx-band{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;
+  font-size:13.5px;color:var(--ink-2);margin:0 0 11px;max-width:68ch}
+.idx-band .mlab{border:2px solid var(--edge);border-radius:999px;padding:2px 8px;color:var(--ink-2)}
+
+/* On-page nav. Instrumentation, not a card: no shadow, no fill. */
+.pagenav{border-top:2px solid var(--edge);border-bottom:2px solid var(--edge);
+  padding:12px 0;margin:0 0 30px}
+.pagenav ul{list-style:none;display:flex;flex-wrap:wrap;gap:6px 18px;margin:8px 0 0;padding:0}
+.pagenav a{font-size:14px;font-weight:700;text-decoration:none}
+.pagenav a:hover{text-decoration:underline}
+
+/* Shared mechanics: rules that hold for the whole type, said once. */
+.mech{background:var(--card);border:2px solid var(--edge);border-radius:16px;
+  box-shadow:var(--sh);padding:17px 20px;margin-bottom:18px}
+.mech p{color:var(--ink-2);margin:0 0 12px;max-width:68ch}
+.mech ul{margin:0;padding-left:20px;color:var(--ink-2);font-size:15px}
+.mech li{margin-bottom:6px}
+.mech li::marker{color:var(--ink-3)}
+
+/* ─── instrumentation: never a card, never a shadow ─── */
+.srcs{border-top:2px solid var(--edge)}
+.src{display:flex;gap:14px;align-items:baseline;font-size:15px;padding:12px 0;
+  border-bottom:2px solid var(--edge);color:var(--ink-2)}
+.src b{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);
+  width:92px;flex:none;font-weight:500}
+.evid{width:100%;border-collapse:collapse;font-size:15px;margin-bottom:26px}
+.evid td{padding:11px 14px 11px 0;border-bottom:2px solid var(--edge);vertical-align:top;color:var(--ink-2)}
+.evid tr:first-child td{border-top:2px solid var(--edge)}
+.evid td:first-child{width:160px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:500;white-space:nowrap;padding-right:18px}
+.unknowns{border:2px dashed var(--warn);border-radius:12px;padding:15px 18px;background:transparent}
+.unknowns h3{font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:500;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--warn);margin-bottom:9px}
+.unknowns ul{margin:0;padding-left:19px;color:var(--ink-2);font-size:15px}
+
+/* ─── entity detail ─── */
+.e-meta{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-bottom:22px}
+.e-grid{display:grid;grid-template-columns:1fr;gap:24px;margin-bottom:38px}
+@media (min-width:840px){.e-grid{grid-template-columns:1fr 264px}}
+.e-thumb{aspect-ratio:16/11;background:var(--sunk);display:grid;place-items:center}
+.facts{background:var(--card);border:2px solid var(--edge);border-radius:16px;box-shadow:var(--sh);
+  overflow:hidden;align-self:start}
+.facts .e-thumb{border:0;border-bottom:2px solid var(--edge);border-radius:0;aspect-ratio:16/11}
+.fact{display:flex;justify-content:space-between;gap:14px;padding:10px 14px;align-items:baseline;
+  border-bottom:2px solid var(--edge);font-size:14px}
+.fact:last-child{border-bottom:0}
+.fact b{font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);
+  white-space:nowrap;font-weight:500}
+.fact span{text-align:right;font-weight:700}
+.statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(122px,1fr));gap:11px;margin-bottom:20px}
+.scell{background:var(--card);border:2px solid var(--edge);border-radius:12px;padding:11px 14px}
+.scell b{display:block;font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:1.3rem;
+  line-height:1.25;font-variant-numeric:tabular-nums}
+.h-sub{font-size:1.05rem;margin-bottom:11px}
+
+/* Entity detail: structured How to get (steps + optional keyframes). */
+.e-howto-lead{margin-bottom:14px}
+.e-steps{counter-reset:s;list-style:none;padding:0;margin:0 0 22px;display:grid;gap:12px}
+.e-steps li{counter-increment:s;display:grid;grid-template-columns:30px 1fr;gap:13px;
+  font-size:15px;color:var(--ink-2);align-items:start;line-height:1.55}
+.e-steps li>span{display:block}
+.e-steps li::before{content:counter(s);font-family:"IBM Plex Mono",monospace;font-weight:600;
+  font-size:12px;color:var(--acc-ink);background:var(--acc);width:26px;height:26px;border-radius:9px;
+  border:2px solid var(--edge);display:grid;place-items:center;margin-top:1px;flex:none}
+.e-shots{display:grid;gap:14px;margin:0 0 22px}
+.guide-shot,.e-shot{margin:0;border:2px solid var(--edge);border-radius:14px;overflow:hidden;
+  background:var(--card);box-shadow:var(--sh)}
+.guide-shot img,.e-shot img{display:block;max-width:100%;width:100%;height:auto;vertical-align:middle}
+.guide-shot figcaption,.e-shot figcaption{padding:10px 14px;font-size:13px;color:var(--ink-3);
+  border-top:2px solid var(--edge);line-height:1.45}
+.e-shared-route{margin-top:-4px;margin-bottom:22px;font-size:14px}
+
+/* ─── guide ─── */
+.runorder{background:var(--card);border:2px solid var(--edge);border-radius:16px;box-shadow:var(--sh);
+  padding:16px 20px;margin-bottom:30px}
+.runorder h3{font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:500;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-3);margin-bottom:10px}
+.runorder ol{margin:0;padding-left:20px;color:var(--ink-2);font-size:15px}
+.step{display:grid;grid-template-columns:44px 1fr;gap:16px;padding:22px 0;border-top:2px solid var(--edge)}
+.step-n{font-weight:600;font-size:15px;display:grid;place-items:center;background:var(--acc);
+  color:var(--acc-ink);border:2px solid var(--edge);border-radius:11px;width:38px;height:38px}
+.step h3{font-size:1.05rem;margin-bottom:7px}
+.step p{color:var(--ink-2);margin-bottom:11px}
+.decision{border:2px solid var(--acc);background:var(--acc-soft);border-radius:12px;
+  padding:11px 15px;font-size:15px;color:var(--ink-2)}
+.decision b{color:var(--ink);font-weight:900}
+
+/* ─── redeem steps / faq ─── */
+.steps-num{counter-reset:s;list-style:none;padding:0;margin:0;display:grid;gap:11px}
+/* one wrapper child only: bare text and inline tags inside a grid container
+   each become their own grid item, which is what broke step 5. */
+.steps-num li{counter-increment:s;display:grid;grid-template-columns:30px 1fr;gap:13px;
+  font-size:15px;color:var(--ink-2);align-items:start}
+.steps-num li>span{display:block}
+.steps-num strong{color:var(--ink);font-weight:900}
+.steps-num li::before{content:counter(s);font-family:"IBM Plex Mono",monospace;font-weight:600;
+  font-size:12px;color:var(--acc-ink);background:var(--acc);width:26px;height:26px;border-radius:9px;
+  border:2px solid var(--edge);display:grid;place-items:center;margin-top:1px}
+.faq{background:var(--card);border:2px solid var(--edge);border-radius:16px;box-shadow:var(--sh);overflow:hidden}
+.faq details{border-bottom:2px solid var(--edge)}
+.faq details:last-child{border-bottom:0}
+.faq summary{cursor:pointer;padding:14px 16px;font-weight:900;font-size:15px;letter-spacing:-.02em;
+  list-style:none;display:flex;justify-content:space-between;gap:14px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-weight:900;color:var(--acc);font-size:1.25rem;flex:none;line-height:1}
+.faq details[open] summary::after{content:"–"}
+.faq .a{padding:0 16px 15px;color:var(--ink-2);max-width:68ch;font-size:15px}
+
+/* ─── long-form pages (privacy, disclaimer, guide body).
+   Every other page is data blocks; these are the only pure-prose surfaces,
+   so the reading rhythm is defined once here and nowhere else. ─── */
+.doc{max-width:min(82ch,100%)}
+.doc img{display:block;max-width:100%;width:auto;height:auto;margin:0 0 16px;border-radius:14px;border:2px solid var(--edge);background:var(--card)}
+.doc h2{font-size:1.15rem;margin:34px 0 10px}
+.doc h2:first-child{margin-top:0}
+.doc h3{font-size:1rem;font-weight:700;margin:22px 0 7px;color:var(--ink)}
+.doc p{color:var(--ink-2);margin:0 0 14px}
+.doc ul,.doc ol{color:var(--ink-2);margin:0 0 16px;padding-left:22px}
+.doc li{margin-bottom:6px}
+.doc li::marker{color:var(--ink-3)}
+.doc strong{color:var(--ink);font-weight:700}
+.doc a{font-weight:700}
+.doc hr{border:0;border-top:2px solid var(--edge);margin:30px 0}
+/* a clause the template only renders when a flag is on */
+.cond{border-left:3px solid var(--acc);background:var(--acc-soft);padding:12px 15px;
+  border-radius:0 12px 12px 0;margin:0 0 16px}
+.cond .mlab{display:block;margin-bottom:5px}
+.cond p:last-child{margin-bottom:0}
+
+/* ─── 404. Route pruning is deliberate, so this page is part of the design:
+   a game with no tier data really has no /tier-list, and the visitor
+   needs to be told that rather than shown a blank. ─── */
+.nf{text-align:center;padding:36px 0 20px;max-width:56ch;margin:0 auto}
+.nf-code{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:500;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--ink-3);border:2px solid var(--edge);border-radius:999px;
+  padding:5px 14px;display:inline-block;margin-bottom:18px}
+.nf h1{font-size:clamp(1.7rem,1.4rem+1.5vw,2.3rem);line-height:1.06;margin-bottom:13px}
+.nf p{color:var(--ink-2);margin:0 0 14px}
+.nf .ctas{justify-content:center}
+
+/* ─── ads: OFF. Rules kept — re-enabling must not reintroduce layout shift ─── */
+.ad{display:grid;place-items:center;background:transparent;border:2px dashed var(--edge);
+  border-radius:16px;color:var(--ink-3);margin-bottom:44px}
+.ad-inline{min-height:250px}
+.ad-strip{min-height:90px}
+
+/* ─── updates ─── */
+.upd{background:var(--card);border:2px solid var(--edge);border-radius:16px;box-shadow:var(--sh);
+  padding:17px 20px;margin-bottom:13px}
+.upd-h{display:flex;justify-content:space-between;gap:14px;align-items:baseline;
+  flex-wrap:wrap;margin-bottom:10px}
+.upd-h h2{font-size:1.05rem}
+.upd ul{margin:0;padding-left:20px;color:var(--ink-2);font-size:15px}
+
+/* ─── footer: not a keyword surface, it is the internal-linking structure.
+   Quiet by design — the chunky language stops at the brand block. ─── */
+footer{border-top:2px solid var(--edge);background:var(--sunk);margin-top:56px;padding:34px 0 0}
+.f-top{display:grid;grid-template-columns:1fr;gap:26px;padding-bottom:30px}
+@media (min-width:680px){.f-top{grid-template-columns:1fr 1fr}}
+@media (min-width:980px){.f-top{grid-template-columns:1.5fr repeat(4,1fr)}}
+.f-about p{font-size:14px;color:var(--ink-3);max-width:36ch;margin:13px 0 0;line-height:1.55}
+.f-col h4{margin-bottom:11px}
+.f-col a{display:block;font-size:14px;font-weight:500;color:var(--ink-2);
+  text-decoration:none;padding:4px 0}
+.f-col a:hover{color:var(--acc)}
+.f-legal{border-top:2px solid var(--edge);padding:20px 0}
+.f-legal p{font-size:13px;color:var(--ink-3);max-width:92ch;margin:0;line-height:1.6}
+.f-bot{border-top:2px solid var(--edge);padding:15px 0 32px;display:flex;justify-content:space-between;
+  gap:14px;flex-wrap:wrap;font-size:13px;color:var(--ink-3)}
+
+[hidden]{display:none!important}
+/* guides dropdown */
+nav.main{position:relative}
+.dd{position:relative;display:inline-block}
+.dd>button{font:inherit;font-weight:700;font-size:14px;background:none;border:0;color:inherit;cursor:pointer;padding:6px 10px}
+.dd-menu{display:none;position:absolute;top:100%;left:0;min-width:220px;background:var(--card);border:2px solid var(--edge);border-radius:12px;box-shadow:var(--sh);padding:6px;z-index:40}
+.dd:hover .dd-menu,.dd:focus-within .dd-menu{display:block}
+.dd-menu a{display:block;padding:8px 10px;border-radius:8px}
+table.t{border-collapse:collapse;width:100%;font-size:14px;margin:10px 0 18px}
+table.t th,table.t td{border:2px solid var(--edge);padding:7px 9px;text-align:left;vertical-align:top}
+.src{font-size:13px;color:var(--ink-3)}

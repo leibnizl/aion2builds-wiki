@@ -1,0 +1,2 @@
+{ "name": "aion2builds-wiki", "private": true, "type": "module",
+  "scripts": { "build": "node scripts/build.mjs && node scripts/check.mjs" } }
