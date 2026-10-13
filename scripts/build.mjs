@@ -12,7 +12,7 @@ const guides = [
 ];
 const top = [ ['/', 'Home'], ['/classes','Classes'], ['/updates','Update Log'], ['/about','About'] ];
 const pages = [];
-function page(path, title, desc, crumbs, body) { pages.push({ path, title, desc, crumbs, body }); }
+function page(path, title, desc, crumbs, body, opts={}) { pages.push({ path, title, desc, crumbs, body, ...opts }); }
 function render(p) {
   const url = SITE + (p.path === '/' ? '' : p.path);
   const cur = (h) => (h === p.path ? ' aria-current="page"' : '');
@@ -22,12 +22,14 @@ function render(p) {
   const trail = p.crumbs.slice(0,-1).map(([n,h])=>`<a href="${h}">${n}</a> › `).join('') + esc(p.crumbs.at(-1)[0]);
   const bc = { '@context':'https://schema.org','@type':'BreadcrumbList', itemListElement: p.crumbs.map(([n,h],i)=>({ '@type':'ListItem', position:i+1, name:n, item: SITE + (h==='/'?'':h) })) };
   const ws = { '@context':'https://schema.org','@type':'WebSite', name:NAME, url:SITE };
+  const org = { '@context':'https://schema.org','@type':'Organization', name:NAME, url:SITE, logo:`${SITE}/logo.svg` };
+  const vg = { '@context':'https://schema.org','@type':'VideoGame', name:'Aion 2', publisher:{ '@type':'Organization', name:'NC' }, gamePlatform:'PC', genre:'MMORPG', url:STEAM, sameAs:[STEAM] };
   return `<!doctype html><html lang="en" style="--hue:222"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(p.title)}</title><meta name="description" content="${esc(p.desc)}"><link rel="canonical" href="${url}">
-<meta property="og:type" content="website"><meta property="og:site_name" content="${NAME}"><meta property="og:title" content="${esc(p.title)}"><meta property="og:description" content="${esc(p.desc)}"><meta property="og:url" content="${url}"><meta property="og:image" content="${SITE}/img/aion2-header.jpg"><meta name="twitter:card" content="summary_large_image">
+<meta property="og:type" content="website"><meta property="og:site_name" content="${NAME}"><meta property="og:title" content="${esc(p.title)}"><meta property="og:description" content="${esc(p.desc)}"><meta property="og:url" content="${url}"><meta property="og:image" content="${SITE}/og/${p.og||({'/':'home','/classes':'classes','/updates':'updates'})[p.path]||'default'}.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">${p.noindex?'<meta name="robots" content="noindex,follow">':''}<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@500;700;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap"><link rel="stylesheet" href="/style.css">
 <script>try{if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
-<script type="application/ld+json">${JSON.stringify(p.path==='/'?ws:bc)}</script>${p.path!=='/'?`<script type="application/ld+json">${JSON.stringify(ws)}</script>`:''}
+${(p.path==='/'?[ws,org,vg]:[bc,ws,org,vg]).map(x=>`<script type="application/ld+json">${JSON.stringify(x)}</script>`).join('')}
 </head><body><a class="skip" href="#main">Skip to content</a>
 <header class="topbar"><div class="shell topbar-in"><a class="brand" href="/"><img class="brand-mark" src="/logo.svg" width="26" height="26" alt="">${NAME}</a><nav class="main" aria-label="Main">${nav}</nav>
 <div class="tools"><button class="icon-btn ic" id="theme" type="button" aria-label="Switch theme" onclick="var d=document.documentElement,k=d.getAttribute('data-theme')!=='dark';d.setAttribute('data-theme',k?'dark':'light');try{localStorage.setItem('theme',k?'dark':'light')}catch(e){}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.3 14.6A9.2 9.2 0 0 1 9.4 2.7a.75.75 0 0 0-1-.9 10.7 10.7 0 1 0 13.8 13.8.75.75 0 0 0-.9-1z"/></svg></button></div></div></header>
@@ -42,7 +44,7 @@ function render(p) {
 }
 const H = [['Home','/']];
 // Home
-page('/', 'Aion 2 Builds: Classes, Beginner Guide and Update Log', 'Aion 2 class build notes with sources, a beginner guide for the global launch, and a dated update log from official patch notes.', [['Home','/']], `
+page('/', 'Aion 2 Builds: Class Notes, Beginner Guide and Patch Log', 'Aion 2 class build notes for all 8 classes with cited sources, a beginner guide for the global Steam launch and a dated update log from official NC notices.', [['Home','/']], `
 <div class="hero"><div><div class="mlab">AION 2 fan guide · NC MMORPG on Steam</div><h1>Aion 2 <em>Builds</em></h1>
 <p>Class build notes taken from what creators actually show on screen, a beginner guide for the global launch, and an update log built from official notices. Every number cites where it came from.</p>
 <div class="ctas"><a class="cta pri" href="/classes">Class builds</a><a class="cta" href="/guides/beginner-guide">Beginner guide</a><a class="cta" href="/updates">Update log</a></div>
@@ -58,13 +60,13 @@ page('/', 'Aion 2 Builds: Classes, Beginner Guide and Update Log', 'Aion 2 class
 <h3>How many classes are there?</h3><p>Eight are covered here: Gladiator, Templar, Assassin, Ranger, Sorcerer, Spiritmaster, Cleric and Chanter. One Korean chart also lists a ninth class, so the full global roster is (not confirmed).</p>
 <h3>Which class is strongest?</h3><p>We have no global damage data yet. A Korean-server chart exists, but its unit is not labelled, so we do not rank classes from it.</p></div></div>`);
 // Classes
-page('/classes','Aion 2 Classes and Build Notes','Build notes for all 8 Aion 2 classes with on-screen sources: skill orders, macros and tooltips where available.',[...H,['Classes','/classes']],`
+page('/classes','Aion 2 Classes List: All 8 Classes With Build Notes','All 8 Aion 2 classes in one list: Gladiator, Templar, Assassin, Ranger, Sorcerer, Spiritmaster, Cleric and Chanter, with sourced skill orders and macros.',[...H,['Classes','/classes']],`
 <h1>Aion 2 classes</h1><div class="prose"><p>Each class page lists only what we could read directly in creator guides or official notes. Stat priority is (not confirmed) for every class: no source showed a readable list.</p></div>
 <div class="gcards">${classes.map(c=>`<a class="gcard" href="/classes/${c.slug}"><span class="gcard-t">${c.name}</span><span class="gcard-j">${esc(c.blurb)}</span></a>`).join('')}</div>`);
-for (const c of classes) page(`/classes/${c.slug}`,`Aion 2 ${c.name} Build Notes`,`Aion 2 ${c.name} build notes: ${c.blurb}`,[...H,['Classes','/classes'],[c.name,`/classes/${c.slug}`]],`<h1>Aion 2 ${c.name} build</h1><div class="prose">${c.body}<p class="mlab">Last checked ${LAST}</p></div>`);
+for (const c of classes) page(`/classes/${c.slug}`,`Aion 2 ${c.name} Build Notes`,c.desc,[...H,['Classes','/classes'],[c.name,`/classes/${c.slug}`]],`<h1>Aion 2 ${c.name} build</h1><div class="prose">${c.body}<p class="mlab">Last checked ${LAST}</p></div>`,{noindex:true,og:`class-${c.slug}`});
 // Guides
 const G = [...H,['Guides','/guides/beginner-guide']];
-page('/guides/beginner-guide','Aion 2 Beginner Guide (Global Launch)','Aion 2 beginner guide: launch dates, factions, server pairings, Stigma and Daevanion basics, and what to watch out for.',[...H,['Guides','/guides/beginner-guide'],['Beginner Guide','/guides/beginner-guide']],`
+page('/guides/beginner-guide','Aion 2 Beginner Guide: Tips for New Players (2026)','Aion 2 beginner guide for new players: how to start free on Steam, picking a faction and server, Stigma and Daevanion basics, and mistakes that get you banned.',[...H,['Guides','/guides/beginner-guide'],['Beginner Guide','/guides/beginner-guide']],`
 <h1>Aion 2 beginner guide</h1><div class="prose">
 <h2>Getting in</h2><p>AION 2 is free on Steam and on NC's PURPLE launcher; both share the same servers. Global launch was October 5, 2026 at 6:00 PDT / 15:00 CEST. Early Access servers opened September 30.</p>
 <h2>Pick a faction and server</h2><p>Elyos and Asmodians live on separate servers. Each Elyos server is paired with an Asmodian server, and those are the enemies you meet in the Abyss and Spacetime Rifts. Pairings change periodically. Instanced content, including dungeons, is cross-server, so a newer server does not lock you out of group content. New EU servers (Nathara and Tassin) opened on October 8.</p>
@@ -72,21 +74,21 @@ page('/guides/beginner-guide','Aion 2 Beginner Guide (Global Launch)','Aion 2 be
 <h2>Systems you will meet early</h2><ul><li><strong>Stigma skills</strong>: extra skills you slot as you level. Slots are reported to open at levels 22, 27, 32 and 37 (not confirmed).</li><li><strong>Daevanion board</strong>: a node board for each class. Creator guides show 300 points spent on a full board (not confirmed).</li><li><strong>Theostones and Manastones</strong>: gear add-ons covered by several creator guides; exact values are (not confirmed).</li></ul>
 <h2>Things to avoid</h2><ul><li>Buying currency from third parties. NC has posted warnings and restricts accounts for gold farming, bots, macros run by unauthorized programs and real-money trading.</li><li>Ignoring a security lock. A temporary lock is not a penalty; contact NC Customer Support to restore access.</li></ul>
 <h2>Free launch rewards</h2><p>Log in before the December 1 maintenance to collect pre-registration and wishlist rewards. Details in the <a href="/guides/launch-rewards">launch rewards guide</a>.</p>
-<p class="src">Sources: official Steam news posts from NC, Oct 4 to Oct 13, 2026. Last checked ${LAST}.</p></div>`);
-page('/guides/server-transfer','Aion 2 Server Transfer Guide','Aion 2 server transfer dates, costs and regional hours from the official notice.',[...H,['Guides','/guides/beginner-guide'],['Server Transfer Guide','/guides/server-transfer']],`
+<p class="src">Sources: official Steam news posts from NC, Oct 4 to Oct 13, 2026. Last checked ${LAST}.</p></div>`,{og:'guide-beginner-guide'});
+page('/guides/server-transfer','Aion 2 Server Transfer Guide: Dates, Cost and Hours','Aion 2 server transfer guide: Early Access and launch server dates in October, Quna cost per character and slot, and the daily transfer windows for each region.',[...H,['Guides','/guides/beginner-guide'],['Server Transfer Guide','/guides/server-transfer']],`
 <h1>Aion 2 server transfer guide</h1><div class="prose">
 <h2>When</h2><ul><li><strong>Early Access servers:</strong> after maintenance on Tuesday Oct 13 PDT / Wednesday Oct 14 CEST, until before maintenance on Oct 20 PDT / Oct 21 CEST.</li><li><strong>Launch servers:</strong> after maintenance on Oct 20 PDT / Oct 21 CEST, until before maintenance on Oct 27 PDT / Oct 28 CET.</li></ul>
 <h2>Cost</h2><table class="t"><tr><th>Item</th><th>Price</th><th>Limit</th></tr><tr><td>Base cost</td><td>0 Quna</td><td>Once per account</td></tr><tr><td>Per character transferred</td><td>0 Quna</td><td>-</td></tr><tr><td>Extra character slot on destination</td><td>1,000 Quna per slot</td><td>-</td></tr></table>
 <p>Example from the notice: moving 6 characters to a server where only 4 slots are free costs 2,000 Quna for the extra slots.</p>
 <h2>Daily windows</h2><ul><li>North America East and West, South America: 09:00 to 13:00 and 15:00 to 19:00 PDT.</li><li>Europe: 03:00 to 07:00 and 09:00 to 13:00 PDT (12:00 to 16:00 and 18:00 to 22:00 CEST).</li><li>Asia: (not confirmed) by this page.</li></ul>
-<p class="src">Source: NC, "Server Transfer Products Info" and "Server Transfer Q&amp;A", posted Oct 9, 2026 on Steam. Last checked ${LAST}.</p></div>`);
-page('/guides/launch-rewards','Aion 2 Launch Rewards Guide','Aion 2 launch rewards: pet chest, wishlist chest contents and the December 1 deadline.',[...H,['Guides','/guides/beginner-guide'],['Launch Rewards Guide','/guides/launch-rewards']],`
+<p class="src">Source: NC, "Server Transfer Products Info" and "Server Transfer Q&amp;A", posted Oct 9, 2026 on Steam. Last checked ${LAST}.</p></div>`,{og:'guide-server-transfer'});
+page('/guides/launch-rewards','Aion 2 Launch Rewards: Pre-Registration and Wishlist Items','Aion 2 launch rewards explained: the free Pagati pet chest, every item in the Steam wishlist chest, and the December 1 login deadline to claim them by mail.',[...H,['Guides','/guides/beginner-guide'],['Launch Rewards Guide','/guides/launch-rewards']],`
 <h1>Aion 2 launch rewards guide</h1><div class="prose"><p>NC extended the pre-registration and Steam wishlist rewards to every player who creates an account and logs in before maintenance on December 1, 2026 (23:30 PST). Rewards arrive by in-game mail, which expires December 8, 2026 at 23:30 PST.</p>
 <h2>Advance: Pet Chest</h2><ul><li>Pet: Pagati</li><li>Pick one of Papis, Silver Blade Rotan, Konutin Worker or Black Smoke Murute</li></ul>
 <h2>Advance: Wishlist Chest</h2><table class="t"><tr><th>Item</th><th>Qty</th></tr><tr><td>Resurrection Spiritstone (Bound)</td><td>10</td></tr><tr><td>Life Potion (Bound)</td><td>100</td></tr><tr><td>Healing Potion (Bound)</td><td>50</td></tr><tr><td>Return Scroll (Bound)</td><td>50</td></tr><tr><td>Courage Scroll (Bound)</td><td>50</td></tr><tr><td>Speed Scroll (Bound)</td><td>50</td></tr><tr><td>Benediction Scroll (Bound)</td><td>50</td></tr></table>
-<p class="src">Source: NC, "Launch Rewards", posted Oct 4, 2026 on Steam. Last checked ${LAST}.</p></div>`);
+<p class="src">Source: NC, "Launch Rewards", posted Oct 4, 2026 on Steam. Last checked ${LAST}.</p></div>`,{og:'guide-launch-rewards'});
 // Updates
-page('/updates','Aion 2 Update Log','Dated Aion 2 update log: patch notes, maintenance and server notices from official sources.',[...H,['Update Log','/updates']],`
+page('/updates','Aion 2 Update Log and Patch Notes (October 2026)','Aion 2 update log and patch notes for October 2026: the Oct 7 patch, maintenance, new EU servers, outage compensation and server transfer notices, all dated.',[...H,['Update Log','/updates']],`
 <h1>Aion 2 update log</h1><div class="prose">
 <h2>Oct 13 PDT / Oct 14 CEST: maintenance</h2><p>Scheduled maintenance at 23:30 PDT, about 3 hours 30 minutes. Patch details were not published at the time of writing (not confirmed). Server transfers for Early Access servers open after this maintenance.</p>
 <h2>Oct 12 PDT: account restrictions</h2><p>Another wave of restrictions for gold farming, bots, unauthorized programs and real-money trading. A similar wave was posted Oct 10 PDT.</p>
@@ -106,7 +108,7 @@ info('contact','Contact | Aion 2 Builds','Contact','Contact Aion 2 Builds.',`<p>
 // 404
 const notFound = { path:'/404', title:'Page not found | Aion 2 Builds', desc:'Page not found.', crumbs:[...H,['Not found','/404']], body:'<h1>Page not found</h1><div class="prose"><p>Try the <a href="/">home page</a> or the <a href="/classes">class list</a>.</p></div>' };
 for (const p of [...pages, notFound]) { const f = p.path==='/'?`${OUT}/index.html`:`${OUT}${p.path}.html`; mkdirSync(dirname(f),{recursive:true}); writeFileSync(f, render(p)); }
-writeFileSync(`${OUT}/sitemap.xml`, `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.map(p=>`<url><loc>${SITE}${p.path==='/'?'':p.path}</loc><lastmod>${LAST}</lastmod></url>`).join('\n')}\n</urlset>\n`);
+writeFileSync(`${OUT}/sitemap.xml`, `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.filter(p=>!p.noindex).map(p=>`<url><loc>${SITE}${p.path==='/'?'':p.path}</loc><lastmod>${LAST}</lastmod></url>`).join('\n')}\n</urlset>\n`);
 writeFileSync(`${OUT}/robots.txt`, `User-agent: *\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n`);
-writeFileSync(`${OUT}/urls.txt`, pages.map(p=>SITE+(p.path==='/'?'':p.path)).join('\n'));
+writeFileSync(`${OUT}/urls.txt`, pages.filter(p=>!p.noindex).map(p=>SITE+(p.path==='/'?'':p.path)).join('\n'));
 console.log(`built ${pages.length} pages`);

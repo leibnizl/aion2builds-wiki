@@ -9,4 +9,16 @@ for (const f of walk('dist').filter(f => /\.(html|xml|txt)$/.test(f))) {
   if (f.endsWith('.html') && !t.includes('class="crumbs"')) { console.error(`${f}: no breadcrumbs`); bad++; }
   if (f.endsWith('.html') && !t.includes('rel="canonical" href="https://aion2builds.wiki')) { console.error(`${f}: canonical`); bad++; }
 }
+for (const f of walk('dist').filter(f => f.endsWith('.html') && !f.endsWith('404.html'))) {
+  const t = readFileSync(f,'utf8'); if (/name="robots" content="noindex/.test(t)) continue;
+  const legal = /\/(about|privacy|terms|disclaimer|contact)\.html$/.test(f);
+  const dsc = (t.match(/<meta name="description" content="([^"]*)"/)||[])[1]||''; const og = (t.match(/<meta property="og:description" content="([^"]*)"/)||[])[1];
+  const ttl = ((t.match(/<title>([^<]*)<\/title>/)||[])[1]||'').replace(/&amp;/g,'&');
+  const dl = dsc.replace(/&amp;/g,'&').replace(/&quot;/g,'"').length;
+  if (dsc !== og) { console.error(`${f}: og:description differs`); bad++; }
+  if (!legal && (dl < 140 || dl > 160)) { console.error(`${f}: meta description ${dl} chars`); bad++; }
+  if (!legal && (ttl.length < 45 || ttl.length > 60)) { console.error(`${f}: title ${ttl.length} chars`); bad++; }
+  if (!/"@type":"VideoGame"/.test(t) || !/"@type":"Organization"/.test(t)) { console.error(`${f}: JSON-LD missing`); bad++; }
+  console.log(`${String(ttl.length).padStart(3)} ${String(dl).padStart(3)} ${f}  | ${ttl}`);
+}
 if (bad) { console.error(`check failed: ${bad}`); process.exit(1); } console.log('check passed');

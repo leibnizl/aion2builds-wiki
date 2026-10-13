@@ -4,7 +4,7 @@ export const LAST = '2026-10-13';
 export const STEAM = 'https://store.steampowered.com/app/3393110/';
 const s = (ch, d, t) => `${ch} (video posted ${d}), ${t}`;
 export const classes = [
- { slug:'chanter', name:'Chanter', blurb:'The best-sourced class so far: skill levels, passive order and two Korean-server changes.',
+ { slug:'chanter', desc:'Aion 2 Chanter build notes: target skill levels, passive order and two Korean-server skill changes, each cited to the creator guide and timestamp it came from.', name:'Chanter', blurb:'The best-sourced class so far: skill levels, passive order and two Korean-server changes.',
    body:`<p>The Chanter evidence comes from one text-card guide that cites Korean-server notes and community consensus. Treat everything below as secondary until it shows up in official global patch notes.</p>
 <h2>Skill levels people are aiming for</h2>
 <table class="t"><tr><th>Skill</th><th>Target level</th></tr>
@@ -17,27 +17,27 @@ export const classes = [
 <h2>Korean-server changes</h2><ul><li>Spinning Strike became a 20 m ranged area attack, PvE damage +50%, cooldown 15 to 30 s (KR, Sep 2).</li><li>Incandescent Blow gained +40% and then another +50% PvE damage (KR, Aug 26 and Sep 2). The card says this is already in the global client (not confirmed).</li></ul>
 <p class="src">Source: ${s('Antochi','Oct 7','1:55 and 2:02')}. The official global patch notes for Oct 6 / Oct 7 list no class changes.</p>
 <h2>Stat priority</h2><p>Not shown on screen in any source we checked (not confirmed).</p>` },
- { slug:'cleric', name:'Cleric', blurb:'A seven-skill numbered list from a Daevanion board overview.',
+ { slug:'cleric', desc:'Aion 2 Cleric build notes: a numbered seven-skill list shown over the Daevanion board, with what is still unclear about it and where stat priority stands.', name:'Cleric', blurb:'A seven-skill numbered list from a Daevanion board overview.',
    body:`<h2>Numbered skill list</h2><ol><li>Judgment Thunder</li><li>A mark skill (name unclear on screen)</li><li>Divine Aura</li><li>Chain of Torment</li><li>Condemnation</li><li>Bolt</li><li>Empyrean Lord</li></ol>
 <p>The frame does not say whether this is a priority or a rotation order (not confirmed).</p><p class="src">Source: 지혜jinxan (video posted Oct 10), 2:24.</p>
 <h2>Stat priority</h2><p>Not shown on screen in any source we checked (not confirmed).</p>` },
- { slug:'ranger', name:'Ranger', blurb:'A three-skill opening macro from an endgame guide.',
+ { slug:'ranger', desc:'Aion 2 Ranger build notes: the three-skill opening macro from an endgame guide, the skill priority row it showed, and which parts are still not confirmed.', name:'Ranger', blurb:'A three-skill opening macro from an endgame guide.',
    body:`<h2>Macro 1</h2><ol><li>Gale Arrow</li><li>Drill Dart</li><li>Burst Arrow</li></ol><p>Each step had a 0 ms delay in the shown macro. The guide also showed a skill priority row (5 active, 4 Stigma, 8 passive), but only as icons, so skill names are (not confirmed).</p>
 <p class="src">Source: ${s('Fubgun','Oct 9','6:06')}.</p><h2>Stat priority</h2><p>(not confirmed)</p>` },
- { slug:'sorcerer', name:'Sorcerer', blurb:'A damage-share breakdown from one player\'s training-dummy test.',
+ { slug:'sorcerer', desc:"Aion 2 Sorcerer build notes: damage share by skill from one player's training dummy test, led by Hellfire and Blaze, with notes on what it does not show.", name:'Sorcerer', blurb:'A damage-share breakdown from one player\'s training-dummy test.',
    body:`<p>This is what one player pressed in a test, not a recommended rotation.</p>
 <table class="t"><tr><th>Skill</th><th>Damage share</th></tr><tr><td>Hellfire</td><td>25%</td></tr><tr><td>Blaze</td><td>19%</td></tr><tr><td>Cold Storm</td><td>11%</td></tr><tr><td>Firestorm</td><td>10%</td></tr><tr><td>Fire Wall</td><td>9%</td></tr><tr><td>Bittercold Wind</td><td>7%</td></tr><tr><td>Pyroclasm, Fire Mark, Delayed Explosion, Burst</td><td>3% each</td></tr></table>
 <p class="src">Source: ${s('AstralLight_TV','Oct 10','2:32')}. Total DPS on that screen was too small to read (not confirmed).</p><h2>Stat priority</h2><p>(not confirmed)</p>` },
- { slug:'gladiator', name:'Gladiator', blurb:'Greatsword class; skill tooltips and one stat panel, no order shown yet.',
+ { slug:'gladiator', desc:'Aion 2 Gladiator build notes: Lifestealing Blade and Keen Strike tooltips for the Greatsword class, with sources, plus what is missing for a full rotation.', name:'Gladiator', blurb:'Greatsword class; skill tooltips and one stat panel, no order shown yet.',
    body:`<h2>Skill tooltips seen</h2><ul><li><strong>Lifestealing Blade</strong>: hits up to 4 enemies within 4 m, absorbs 10% HP, 20 Stagger Gauge damage, MP 200, instant cast, 1 min 30 s cooldown, Greatsword.</li><li><strong>Keen Strike</strong> (Lv 9): hits up to 4 enemies within 4 m, lowers Ruinous Blow's cooldown by 1 s on hit, restores 100 MP.</li></ul>
 <p class="src">Sources: ${s('Ulfhednar','Oct 9','2:48')}; ${s('Kanon','Oct 9','9:20')}.</p><h2>Rotation and stat priority</h2><p>No ordered list was readable on screen (not confirmed).</p>` },
- { slug:'templar', name:'Templar', blurb:'Longsword tank class; Judgment and Punishment tooltips.',
+ { slug:'templar', desc:'Aion 2 Templar build notes: Judgment and Punishment skill tooltips for the Longsword tank class, cited to creator guides, with rotation and stats not confirmed.', name:'Templar', blurb:'Longsword tank class; Judgment and Punishment tooltips.',
    body:`<h2>Skill tooltips seen</h2><ul><li><strong>Judgment</strong> (Lv 10 +6): damage within 4 m plus extra damage on hit, 5 Stagger Gauge damage.</li><li><strong>Punishment</strong> (Lv 10 +6): hits up to 4 enemies within 4 m, damage over time every 0.5 s for 3 s, +30% Skill Speed, MP 200, 30 s cooldown, 20 m range, Longsword.</li></ul>
 <p class="src">Sources: ${s('Xia','Oct 9','1:52')}; ${s('StingKnight','Oct 10','2:00')}.</p><h2>Rotation and stat priority</h2><p>(not confirmed)</p>` },
- { slug:'assassin', name:'Assassin', blurb:'Dagger class; back-attack and Stagger follow-up tooltips.',
+ { slug:'assassin', desc:'Aion 2 Assassin build notes: Ambush and Storm Rampage tooltips for the Dagger class, covering back attacks, Stagger follow-ups and HP absorb, with sources.', name:'Assassin', blurb:'Dagger class; back-attack and Stagger follow-up tooltips.',
    body:`<h2>Skill tooltips seen</h2><ul><li><strong>Ambush</strong>: +30% damage as a back attack, absorbs 3% HP, engraves 2 Insignias for 10 s, MP 100, 10 s cooldown.</li><li><strong>Storm Rampage</strong>: hits a target afflicted with Stagger within 4 m, absorbs 5% HP, restores 120 MP on hit, lands as Multi-Hit, Dagger.</li></ul>
 <p class="src">Sources: Shikku (video posted Oct 9), 5:08; ${s('Nellan97','Oct 10','7:58')}.</p><h2>Rotation and stat priority</h2><p>(not confirmed)</p>` },
- { slug:'spiritmaster', name:'Spiritmaster', blurb:'Water and spirit caster; Cold Shock tooltip.',
+ { slug:'spiritmaster', desc:'Aion 2 Spiritmaster build notes: the Cold Shock skill tooltip for the Water and spirit caster, a note on naming differences, and what is still not confirmed.', name:'Spiritmaster', blurb:'Water and spirit caster; Cold Shock tooltip.',
    body:`<h2>Skill tooltip seen</h2><ul><li><strong>Cold Shock</strong> (Lv 10 +6): Water damage within 20 m, restores 100 MP, +50% Multi-Hit chance.</li></ul>
 <p>Some sites list this class under another name; the global naming is (not confirmed).</p>
 <p class="src">Source: 스토리텔러 (Storyteller) (video posted Oct 10), 2:24.</p><h2>Rotation and stat priority</h2><p>(not confirmed)</p>` },
