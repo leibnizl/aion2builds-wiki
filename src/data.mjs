@@ -1,6 +1,6 @@
 export const SITE = 'https://aion2builds.wiki';
 export const NAME = 'Aion 2 Builds';
-export const LAST = '2026-10-13';
+export const LAST = '2026-10-25';
 export const STEAM = 'https://store.steampowered.com/app/3393110/';
 const s = (ch, d, t) => `${ch} (video posted ${d}), ${t}`;
 export const classes = [
