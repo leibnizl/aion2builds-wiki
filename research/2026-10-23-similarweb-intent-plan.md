@@ -9,7 +9,7 @@
 
 这次全量数据确认了：网站不应该继续只靠几篇 Guide 和一排排 Card 扩张。真正有需求的产品线至少有六条：
 
-1. **Builds 与职业决策**：先把现有 8 个职业页做成真正的 Build 产品，再增加 `/builds` 聚合入口与 `/classes/tier-list`。
+1. **Builds 与职业决策**：先把现有 8 个职业页做成真正的 Build 产品，再增加 `/builds` 聚合入口与 `/tier-list`。
 2. **实时信息**：`server status`、`maintenance`、`codes`、`rift timer`、`player count` 是持续更新型页面，不是普通文章。
 3. **地图与查找**：`interactive map`、`hidden cubes`、材料地点需要真实坐标、筛选与完成状态；静态文字页不能满足意图。
 4. **图文系统 Guide**：Twitch Drops、阵营选择、旧装备、Essence Extraction、Combat Power、宠物与 Soul Binding 都需要真实客户端截图和决策表。
@@ -55,7 +55,7 @@
 | Classes | `aion 2 classes` 552,670 | 选职业、比较难度与场景 | 决策矩阵 + 职业入口 | `enrich_existing` `/classes` |
 | Builds | `aion 2 builds` 135,630 | 找到当前职业/模式的可执行配置 | 可筛选聚合页 | `new_page_candidate` `/builds`；详情仍用 `/classes/{slug}` |
 | Class build | Gladiator 127,640；Ranger 82,130；Sorcerer 73,910；Cleric 66,230 | 复制并理解完整配置 | 深度职业 Build 页 | 先丰富四个职业页，再完成其余四个 |
-| Tier list | `class tier list` 110,700 | 按 PvE/PvP/solo 等场景选职业 | 有方法、版本、模式切换的榜单 | 新建 `/classes/tier-list`，变体用页内 tab/锚点 |
+| Tier list | `class tier list` 110,700 | 按 PvE/PvP/solo 等场景选职业 | 有方法、版本、模式切换的榜单 | 新建 `/tier-list`，变体用页内 tab/锚点 |
 | Release/access | `release date` 279,160；`download` 45,660；`system requirements` 14,550 | 能否玩、在哪里下、设备是否支持 | Access hub + 官方深链 + 配置表 | `/play` 或 `/download`；`/system-requirements` |
 | Server/live status | `server status` 158,180；`maintenance` 94,950 | 现在能不能登录、何时恢复 | 官方源优先的状态面板 | 新建 `/status`，不能伪造全区实时探测 |
 | Rift timer | `rift timer` 105,600 | 下一次事件还有多久 | 真倒计时 + 时区 + 数据来源 | `/tools/rift-timer`，仅在 Global 排期锚点核验后发布 |
@@ -118,7 +118,7 @@ Guide 不应该塞通用宣传图。图片的职责是证明并帮助操作：�
 │   ├── /classes/templar
 │   └── /classes/assassin
 ├── /classes
-│   └── /classes/tier-list
+├── /tier-list
 ├── /guides
 │   ├── /guides/beginner-guide
 │   ├── /guides/twitch-drops
@@ -161,7 +161,7 @@ Guide 不应该塞通用宣传图。图片的职责是证明并帮助操作：�
 ## 页面合并与 canonical 规则
 
 1. `/builds` 是筛选/导航页，8 个详情 canonical 继续使用现有 `/classes/{slug}`；不要再生成 `/builds/gladiator` 等重复 URL。
-2. `tier list`、`class tier list`、`best class`、PvP/PvE/DPS/Solo 排名合并到 `/classes/tier-list`，用模式切换或锚点承接。
+2. `tier list`、`class tier list`、`best class`、PvP/PvE/DPS/Solo 排名合并到 `/tier-list`，用模式切换或锚点承接。
 3. 职业 macro 放在各职业页的 rotation/macro 模块；通用 macro 页只有在 Global 内置功能和政策核验后才建。外部连发、AFK、G Hub/Razer 自动化不覆盖。
 4. `splendid/splendent`、`location/locati0n`、Spiritmaster/Elementalist 等拼写与地区命名统一到 canonical 名称，必要时 redirect，不为错拼创建页面。
 5. 单个任务、称号、材料长尾先进入数据库 backlog；没有 schema、ID、来源、版本与足够字段时不批量建薄页。
@@ -171,7 +171,7 @@ Guide 不应该塞通用宣传图。图片的职责是证明并帮助操作：�
 
 ### P0：先把站点从内容原型变成可用产品
 
-1. 重做 `/classes` 比较页，新建 `/builds` 与 `/classes/tier-list`。
+1. 重做 `/classes` 比较页，新建 `/builds` 与 `/tier-list`。
 2. 深化 Gladiator、Ranger、Sorcerer、Cleric 四个职业页，建立可复用的 Build 模板与版本字段。
 3. 上线 `/codes`；每个 code 记录状态、奖励、地区、来源、首次/最后核验、兑换位置与过期记录。
 4. 上线 `/status` 的官方公告/维护聚合版；首版不承诺虚假的全区实时状态。

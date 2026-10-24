@@ -4,6 +4,8 @@ Checked: 2026-10-22
 Scope: English-language `aion 2` / `aion2` demand, Google-visible result patterns, competitor page types and the local site's missing coverage.
 Fresh search volume: **unknown**. This report does not convert autocomplete presence, result counts or competitor coverage into a fabricated search-volume estimate.
 
+> **Superseded priority and baseline note:** this 2026-10-22 pass predates both the full 2026-10-23 Similarweb export and the implementation audited on 2026-10-24. Its recommendation to keep Codes at Watch/P2 is superseded by [`2026-10-23-similarweb-intent-plan.md`](./2026-10-23-similarweb-intent-plan.md), which adds direct demand evidence and promotes `/codes` to P0. All present-tense statements below about missing local pages describe the pre-implementation 2026-10-22 baseline; current route and index status is recorded in [`2026-10-24-publish-gate-audit.md`](./2026-10-24-publish-gate-audit.md).
+
 ## Executive conclusion
 
 The current site is not close to the coverage model users and Google are already rewarding. The market is not limited to a handful of prose guides. The visible competitors provide four distinct products:

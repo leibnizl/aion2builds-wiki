@@ -8,7 +8,7 @@
 
 1. **先把现有 8 个 `/classes/{slug}` 做成真正的 Build 指南，不要另建 8 个重复的 `/builds/{slug}`。** `class / guide / build / PvE build / PvP build / skill build / Daevanion build / macro` 是同一用户旅程的不同入口，应由一个持续更新的职业权威页承接。可以新增 `/builds` 聚合页，但它应筛选并导向这些 canonical 职业页。
 2. **第一波职业优先级：Gladiator → Ranger → Sorcerer → Cleric；第二波：Spiritmaster → Chanter → Templar → Assassin。** 这主要依据各职业 Build 头词的相对量级、意图清晰度和可形成的内容模块，不是把所有变体 volume 相加后的“总量”。
-3. **Tier list 可以做，但必须是同一版本、同一模式下的可审计排名。** `class tier list / tier list / PvP tier list / DPS tier list / best class / meta` 合并到 `/classes/tier-list`，用 PvE、1v1/小队 PvP、大规模 PvP、solo/新手等 tab 或矩阵承接，不要分裂成多篇互相冲突的榜单。
+3. **Tier list 可以做，但必须是同一版本、同一模式下的可审计排名。** `class tier list / tier list / PvP tier list / DPS tier list / best class / meta` 合并到 `/tier-list`，用 PvE、1v1/小队 PvP、大规模 PvP、solo/新手等 tab 或矩阵承接，不要分裂成多篇互相冲突的榜单。
 4. **Macro 有真实需求，但风险最高。** 只讨论游戏内置 macro/技能行、明确列出必须手动释放的位移、爆发和机制技能；任何 Logitech G Hub、Razer Synapse、10ms 连发、AFK/循环自动化都应跳过。当前搜索没有找到可明确授权外部自动化的官方 Global 政策，因此通用 Macro 页应 `verify_first`，而非直接照搬 YouTube 设置。
 5. **Daevanion、Stigma、Arcana、Stats 都可做独立系统页；Skill Builder 不能先做成文章冒充工具。** Planner SERP 已经由可交互、可分享、引用 live-client 数据的产品占据；没有可靠数据同步与交互能力时，`skill builder` 应 `verify_first`。
 6. **SERP 已经非常拥挤，薄页没有胜算。** 竞争页常见：模式切换、等级阶段、技能点、Stigma、Daevanion 路径、Arcana、属性/装备、rotation/macro、图标与截图、更新版本和来源。我们的切入点不是再写一份“best build”摘要，而是把这些模块做齐，并显示 Global/KR/TW 版本边界。
@@ -35,8 +35,8 @@
 | Chanter build/guide/support/DPS/macro | 62,690 | 信息/执行 | `enrich_existing` | `/classes/chanter` | Mantra、support/DPS、等级断点和 group buff 是核心，不是单套 rotation |
 | Templar build/guide/tank/DPS/macro | 57,900 | 信息/执行 | `enrich_existing` | `/classes/templar` | 需仇恨、生存、pull、tank/DPS 双路线；错误宏可能把角色带进 Boss 机制 |
 | Assassin build/guide/PvE/PvP/macro | 57,530 | 信息/执行 | `enrich_existing` | `/classes/assassin` | 高操作/位置要求；宏不能覆盖 opener、位移、防御与爆发判断 |
-| Class tier list / best class / meta | 110,700（class tier list 头词） | 信息/时效 | `new_page_candidate` | `/classes/tier-list` | 一页按版本和场景分层；需 methodology、证据、更新时间、改动记录 |
-| PvP/DPS tier list | 11,450 / 13,110 | 信息/时效 | `enrich_existing` | `/classes/tier-list#pvp`、`#pve-dps` | 与总榜同一意图；独立 URL 会造成榜单冲突和维护重复 |
+| Class tier list / best class / meta | 110,700（class tier list 头词） | 信息/时效 | `new_page_candidate` | `/tier-list` | 一页按版本和场景分层；需 methodology、证据、更新时间、改动记录 |
+| PvP/DPS tier list | 11,450 / 13,110 | 信息/时效 | `enrich_existing` | `/tier-list#pvp`、`#pve-dps` | 与总榜同一意图；独立 URL 会造成榜单冲突和维护重复 |
 | 游戏内 Macro 基础与安全边界 | 20,130 | 信息/执行/风险 | `verify_first` | `/guides/macros` | 先确认 Global 官方规则与客户端行为；只覆盖内置功能，不覆盖外部自动化 |
 | 职业 macro | Chanter 25,820；Gladiator 21,220；Sorc 20,480；Ranger 20,410 等 | 信息/执行/时效 | `enrich_existing` | 各 `/classes/{slug}#rotation-and-macro` | 与技能等级、ping、模式、Boss 机制强耦合；不建 8 篇重复 macro 页 |
 | Daevanion board/points/crystals/class route | 16,010 | 信息/执行 | `new_page_candidate` | `/guides/daevanion-board` | 通用机制独立页；各职业最优路线留在职业页，避免通用页膨胀 |
@@ -194,11 +194,11 @@
 4. [Aion2help：PvP Tier List / 多来源共识](https://aion2help.com/en/tier-list/pvp/)
 5. [YouTube：Every Tier List You Found Is Already Wrong](https://www.youtube.com/watch?v=SEDHpmfJ0XA)
 
-结果本身反复强调 patch 变化和 PvE/PvP 排名不同。建议 `new_page_candidate` `/classes/tier-list`，但只能在有可说明证据与更新时间时发布。
+结果本身反复强调 patch 变化和 PvE/PvP 排名不同。建议 `new_page_candidate` `/tier-list`，但只能在有可说明证据与更新时间时发布。
 
 ### 12. `aion 2 pvp tier list`
 
-抽样前列形态与上项高度重叠，包括 [Aion2help 多来源 PvP 共识页](https://aion2help.com/en/tier-list/pvp/)、[Destructoid PvE/PvP 合并榜](https://www.destructoid.com/aion-2-class-tier-list/)、[Aion2builds.com 多模式榜](https://aion2builds.com/tier-list/) 及视频榜。应 `enrich_existing` `/classes/tier-list#pvp`，不要另建独立榜单。
+抽样前列形态与上项高度重叠，包括 [Aion2help 多来源 PvP 共识页](https://aion2help.com/en/tier-list/pvp/)、[Destructoid PvE/PvP 合并榜](https://www.destructoid.com/aion-2-class-tier-list/)、[Aion2builds.com 多模式榜](https://aion2builds.com/tier-list/) 及视频榜。应 `enrich_existing` `/tier-list#pvp`，不要另建独立榜单。
 
 ### 13. `aion 2 macro`
 
@@ -271,7 +271,7 @@ SERP 要求 card types/slots、sets、skill levels、enhance/extract/transmute�
 | 词 | 28d 估算 | 处理 | 去向/原因 |
 |---|---:|---|---|
 | `aion 2 genus insight` | 13,190 | `verify_first` | 先确认 Global 实际系统、词义与职业影响；确认后进入 `/guides/stats` 或独立成长系统页，不凭词面造内容 |
-| `aion 2 meta` | 9,310 | `enrich_existing` | 合并到 `/classes/tier-list` 与 `/builds` 的 patch 状态，不建“meta”重复页 |
+| `aion 2 meta` | 9,310 | `enrich_existing` | 合并到 `/tier-list` 与 `/builds` 的 patch 状态，不建“meta”重复页 |
 | `aion 2 soul binding` | 9,290 | `verify_first` | 属于装备/物品系统，不是职业 Build 头词；验证后可进入装备系统指南 |
 | `aion 2 training dummy` | 8,110 | `enrich_existing` | 作为每个 Build 的验证方法：装备/等级/时长/目标设置、DPS 结果和限制，不必先建独立页 |
 | `aion 2 multi hit` | 7,970 | `enrich_existing` | 放入 `/guides/stats` 并在 Ranger/Assassin 等职业页解释收益差异 |
@@ -328,7 +328,7 @@ SERP 要求 card types/slots、sets、skill levels、enhance/extract/transmute�
 
 ## Tier list 的发布门槛
 
-发布 `/classes/tier-list` 前应具备：
+发布 `/tier-list` 前应具备：
 
 - 明确 Global 客户端版本、发布日期、最后复核日期；
 - PvE group、solo、新手、1v1、小队/大规模 PvP 分开；
@@ -344,7 +344,7 @@ SERP 要求 card types/slots、sets、skill levels、enhance/extract/transmute�
 2. 同时补 `/guides/stats`、`/guides/stigma`、`/guides/daevanion-board`、`/guides/arcana`；职业页只保留推荐与链接，通用机制不重复八次。
 3. 补 Spiritmaster、Chanter、Templar、Assassin，并对名称/地区/角色差异单独 QA。
 4. 新建 `/builds` 聚合筛选页，仍以 `/classes/{slug}` 为详情 canonical。
-5. 只有在版本化证据足够时发布 `/classes/tier-list`。
+5. 只有在版本化证据足够时发布 `/tier-list`。
 6. 完成官方规则验证后再发布 `/guides/macros`；外部 automation 永久排除。
 7. Skill Builder 单列产品评估：数据来源、同步频率、URL 分享、移动端、版权/素材、维护责任均明确后才做；不要用静态文章占这个工具意图。
 

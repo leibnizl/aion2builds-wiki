@@ -1,19 +1,21 @@
 # Research evidence
 
-This directory preserves the publishable reports used for the 2026-10-22 and 2026-10-23 content-expansion research. Raw third-party exports and generated keyword tables stay local and gitignored; the public repository keeps the decisions and reproducible parser without redistributing the source dataset.
+This directory preserves the publishable reports used for the 2026-10-22 through 2026-10-24 content-expansion and publish-gate research. Raw third-party exports and generated keyword tables stay local and gitignored; the public repository keeps the decisions and reproducible parser without redistributing the source dataset.
 
 ## Reports
 
-- `2026-10-23-similarweb-intent-plan.md` — current synthesis: 70,770 unique keywords, page/product decisions, information architecture, publication waves and media/tool contracts.
-- `2026-10-23-intent-builds-classes.md` — 18 representative SERPs across classes, builds, tier lists, skills, planners and macro safety.
-- `2026-10-23-intent-tools-liveops.md` — 16 representative SERPs across status, maintenance, timers, codes, access, maps, meters and troubleshooting.
-- `2026-10-23-intent-guides-entities.md` — 20 representative SERPs across visual guides, dungeons, tasks, items, pets, presets, cosmetics and maps.
-- `2026-10-22-wiki-expansion-roadmap.md` — synthesis and staged implementation plan for turning the prototype into a usable Wiki/companion product.
-- `competitor-content-inventory.md` — named competitor inventory across editorial, database, tools and community layers.
-- `keyword-serp-gap-analysis.md` — Google/SERP intent map, product gaps and evidence-based build order.
-- `visual-editorial-benchmark.md` — visual/content benchmarks and minimum release contracts for each page type.
-- `2026-10-22-content-opportunity.md` — demand, intent, competition and operating implications.
-- `2026-10-22-competitor-audit.md` — concrete result formats and the evidence bar derived from them.
+- [`2026-10-24-publish-gate-audit.md`](./2026-10-24-publish-gate-audit.md) — current implemented route contract: 15 indexable pages, 15 noindex research routes, one redirect, and build-time expiry rules for dated content.
+- [`2026-10-23-similarweb-intent-plan.md`](./2026-10-23-similarweb-intent-plan.md) — current synthesis: 70,770 unique keywords, page/product decisions, information architecture, publication waves and media/tool contracts.
+- [`2026-10-23-intent-builds-classes.md`](./2026-10-23-intent-builds-classes.md) — 18 representative SERPs across classes, builds, tier lists, skills, planners and macro safety.
+- [`2026-10-23-intent-tools-liveops.md`](./2026-10-23-intent-tools-liveops.md) — 16 representative SERPs across status, maintenance, timers, codes, access, maps, meters and troubleshooting.
+- [`2026-10-23-intent-guides-entities.md`](./2026-10-23-intent-guides-entities.md) — 20 representative SERPs across visual guides, dungeons, tasks, items, pets, presets, cosmetics and maps.
+- [`2026-10-22-wiki-expansion-roadmap.md`](./2026-10-22-wiki-expansion-roadmap.md) — synthesis and staged implementation plan for turning the prototype into a usable Wiki/companion product.
+- [`competitor-content-inventory.md`](./competitor-content-inventory.md) — named competitor inventory across editorial, database, tools and community layers.
+- [`keyword-serp-gap-analysis.md`](./keyword-serp-gap-analysis.md) — Google/SERP intent map, product gaps and evidence-based build order.
+- [`visual-editorial-benchmark.md`](./visual-editorial-benchmark.md) — visual/content benchmarks and minimum release contracts for each page type.
+- [`2026-10-22-content-opportunity.md`](./2026-10-22-content-opportunity.md) — demand, intent, competition and operating implications.
+- [`2026-10-22-competitor-audit.md`](./2026-10-22-competitor-audit.md) — concrete result formats and the evidence bar derived from them.
+- [`official-media-sources-2026-10-23.md`](./official-media-sources-2026-10-23.md) — source ledger and use boundary for the six official Steam promotional screenshots committed to the site.
 - Local-only `data/keywords/serp-opportunity-progress.md` — query-by-query action ledger used during research.
 
 ## Raw files (local only)
@@ -38,7 +40,7 @@ This directory preserves the publishable reports used for the 2026-10-22 and 202
 
 ## UTB / Grok deliverable
 
-- `grok/UTB_IMAGE_RICH_GUIDE_BRIEF.md` is the required evidence-rich package contract for future UTB assignments.
+- [`grok/UTB_IMAGE_RICH_GUIDE_BRIEF.md`](./grok/UTB_IMAGE_RICH_GUIDE_BRIEF.md) is the required evidence-rich package contract for future UTB assignments.
 - The original downloaded archive and its extracted copy remain local and gitignored. They were incomplete research inputs, not publishable guides.
 - UTB independently confirmed the official Hard Mode and Ariel facts. Its YouTube transcript retrieval was rate-limited, so the Gladiator and Cleric files intentionally contain unknowns rather than a publishable build. Those incomplete recommendations were not promoted into the site.
 
