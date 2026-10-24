@@ -1,1 +1,10 @@
-{ "cleanUrls": true, "trailingSlash": false, "buildCommand": "npm run build", "outputDirectory": "dist", "installCommand": "true" }
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "installCommand": "true",
+  "redirects": [
+    { "source": "/resources", "destination": "/", "permanent": true }
+  ]
+}

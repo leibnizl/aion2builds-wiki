@@ -1,2 +1,7 @@
 { "name": "aion2builds-wiki", "private": true, "type": "module",
-  "scripts": { "build": "node scripts/build.mjs && node scripts/check.mjs" } }
+  "scripts": {
+    "build": "node scripts/build.mjs && node scripts/check.mjs",
+    "preview": "node scripts/preview.mjs",
+    "test:status": "node --test scripts/status-service.test.mjs"
+  }
+}

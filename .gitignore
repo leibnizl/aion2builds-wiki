@@ -1,2 +1,7 @@
 node_modules
 dist
+.pnpm-store/
+data/
+research/raw/
+research/grok/aion2-research-2026-10-22/
+research/grok/aion2-research-2026-10-22.zip
